@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
   </head>
   <body>
-
-    {% for book in books %}
-    <div> <h3>{{ book.title }}</h3>
-      <p>Author: {{ book.author.name }}</p>
-      <form action="/book/{{ book.id }}/delete" method="POST">
-        <button type="submit">Delete Book</button>
-      </form>
-    </div>
-    {% endfor %}
-
+    <h1>Welcome to the Book Store</h1>
+    <ul>
+      {% for book in books %}
+      <li>
+        <img src="{{ book.cover_image_url }}" alt="{{ book.title }} Cover" style="width: 100px; height: 150px;">
+        <h3>{{ book.title }}</h3>
+        <p>Author: {{ book.author.name }}</p>
+        <form action="/book/{{ book.id }}/delete" method="POST">
+          <button type="submit">Delete Book</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
   </body>
 </html>

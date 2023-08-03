@@ -6,8 +6,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/library.sqlite'
 
 
 db.init_app(app)
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 
 @app.route('/add_author', methods=['GET', 'POST'])

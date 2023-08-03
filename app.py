@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
 from data_models import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/library.sqlite'
 
-db = SQLAlchemy()
+
 db.init_app(app)
+# with app.app_context():
+#     db.create_all()
 
 
 @app.route('/add_author', methods=['GET', 'POST'])
@@ -39,7 +40,7 @@ def add_book():
         return render_template('add_book.html')
 
 
-@app.route('/book/<int:book_id>/delete', method=['POST'])
+@app.route('/book/<int:book_id>/delete', methods=['POST'])
 def delete_book(book_id):
     book = Book.query.get_or_404(book_id)
 

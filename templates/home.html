@@ -4,19 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Book Store</title>
   </head>
   <body>
     <h1>Welcome to the Book Store</h1>
     <form method="post" action="/">
-      <label for="sort_by">Sort by:</label>
-      <select name="sort_by" id="sort_by">
-          <option value="">-- Select --</option>
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-      </select>
-      <button type="submit">Sort</button>
+        <label for="search_query">Search:</label>
+        <input type="text" name="search_query" id="search_query">
+        <button type="submit">Search</button>
     </form>
+    <br>
+    <form method="post" action="/">
+        <label for="sort_by">Sort by:</label>
+        <select name="sort_by" id="sort_by">
+            <option value="">-- Select --</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+        </select>
+        <button type="submit">Sort</button>
+    </form>
+    <h2>Books</h2>
     <ul>
       {% for book in books %}
       <li>

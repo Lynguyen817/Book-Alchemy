@@ -78,16 +78,25 @@ def delete_book(book_id):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    search_query = None
+    sort_by = None
+
     if request.method == 'POST':
+        search_query = request.form.get('search_query')
         sort_by = request.form.get('sort_by')
-        if sort_by == 'title':
-            books = Book.query.order_by(Book.title).all()
-        elif sort_by == 'author':
-            books = Book.query.join(Author).order_by(Author.name, Book.title).all()
-        else:
-            books = Book.query.all()
+
+    if search_query:
+        books = Book.query.filter(
+            (Book.title.ilike(f'%{search_query}%')) |
+            (Book.author.has(Author.name.ilike(f'%{search_query}%')))
+        ).all()
     else:
         books = Book.query.all()
+
+    if sort_by == 'title':
+        books = Book.query.order_by(Book.title).all()
+    elif sort_by == 'author':
+        books = Book.query.join(Author).order_by(Author.name, Book.title).all()
 
     formatted_books = [{'title': book.title, 'author': book.author} for book in books]
     return render_template('home.html', books=formatted_books)

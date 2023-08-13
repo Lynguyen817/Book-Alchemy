@@ -38,16 +38,22 @@ def add_author():
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     if request.method == 'POST':
+        isbn = request.form['isbn']
         title = request.form['title']
+        publication_year = request.form['publication_year']
         author_id = request.form['author']
 
-        book = Book(title=title, author_id=author_id)
+        # Fetch the Author instance using the author_id
+        author = Author.query.get(author_id)
+
+        book = Book(isbn=isbn, title=title, publication_year=publication_year, author_id=author_id, author=author)
         db.session.add(book)
         db.session.commit()
 
         return render_template('add_book.html', success=True)
     else:
-        return render_template('add_book.html')
+        authors = Author.query.all()
+        return render_template('add_book.html', authors=authors)
 
 
 @app.route('/book/<int:book_id>/delete', methods=['POST'])

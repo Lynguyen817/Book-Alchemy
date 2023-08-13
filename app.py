@@ -76,6 +76,22 @@ def delete_book(book_id):
         return f"Error: {str(e)}"
 
 
+@app.route('/author/<int:author_id>/delete', methods=['POST'])
+def delete_author(author_id):
+    try:
+        author = Author.query.get_or_404(author_id)
+
+        # Delete all books that associated with the author
+        Book.query.filter_by(author_id=author.id).delete()
+
+        db.session.delete(author)
+        db.session.commit()
+
+        return redirect('/', code=303)
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     search_query = None
@@ -99,7 +115,8 @@ def home():
         books = Book.query.join(Author).order_by(Author.name, Book.title).all()
 
     #formatted_books = [{'title': book.title, 'author': book.author} for book in books]
-    return render_template('home.html', books=books)
+    authors = Author.query.all()
+    return render_template('home.html', books=books, authors=authors)
 
 
 if __name__ == "__main__":

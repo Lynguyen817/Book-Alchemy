@@ -36,5 +36,17 @@
       </li>
       {% endfor %}
     </ul>
+
+    <h2>Authors</h2>
+    <ul>
+        {% for author in authors %}
+            <li>
+                <p>Author: {{ author.name }}</p>
+                <form action="{{ url_for('delete_author', author_id=author.id) }}" method="POST">
+                    <button type="submit">Delete Author</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
   </body>
 </html>

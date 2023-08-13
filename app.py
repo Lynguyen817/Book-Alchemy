@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, redirect
 from data_models import *
 from datetime import datetime
-
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///library.sqlite'
+
+base_dir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(base_dir, 'data', 'library.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
+#app = Flask(__name__)
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///library.sqlite'
 
 db.init_app(app)
 with app.app_context():

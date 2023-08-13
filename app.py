@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from data_models import *
+from datetime import datetime
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/library.sqlite'
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///library.sqlite'
 
 db.init_app(app)
 with app.app_context():
@@ -14,9 +15,13 @@ with app.app_context():
 def add_author():
     if request.method == 'POST':
         name = request.form['name']
-        bio = request.form['bio']
+        birthdate_str = request.form['birthdate']
+        date_of_death_str = request.form['date_of_death']
 
-        author = Author(name=name, bio=bio)
+        birthdate = datetime.strptime(birthdate_str, '%Y-%m-%d').date() if birthdate_str else None
+        date_of_death = datetime.strptime(date_of_death_str, '%Y-%m-%d').date() if date_of_death_str else None
+
+        author = Author(name=name, birthdate=birthdate, date_of_death=date_of_death)
         db.session.add(author)
         db.session.commit()
 
@@ -42,17 +47,22 @@ def add_book():
 
 @app.route('/book/<int:book_id>/delete', methods=['POST'])
 def delete_book(book_id):
-    book = Book.query.get_or_404(book_id)
+    try:
+        book = Book.query.get_or_404(book_id)
 
-    author_id = book.author_id
-    db.session.delete(book)
-    db.session.commit()
-
-    # Check if the author has any other books in the library
-    author = Author.query.get_or_404(author_id)
-    if not author.books:
-        db.session.delete(author)
+        author_id = book.author_id
+        db.session.delete(book)
         db.session.commit()
+
+        # Check if the author has any other books in the library
+        author = Author.query.get_or_404(author_id)
+        if not author.books:
+            db.session.delete(author)
+            db.session.commit()
+
+        return redirect('/')
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 
 @app.route('/')

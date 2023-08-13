@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-# from sqlalchemy import create_engine, Column, Integer, String, Date
+# from sqlalchemy import Column, Integer, String, Date
 # from sqlalchemy.orm import sessionmaker
 
 db = SQLAlchemy()
@@ -14,7 +14,7 @@ class Author(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    birth_date = db.Column(db.Date, nullable=False)
+    birthdate = db.Column(db.Date, nullable=False)
     date_of_death = db.Column(db.Date)
 
     def __repr__(self):
@@ -24,12 +24,12 @@ class Author(db.Model):
         return f"Author: {self.name}"
 
 
-author = Author(
-    id=1,
-    name="Sir Arthur Conan Doyle",
-    birth_date=1859,
-    date_of_death=1930
-)
+# author = Author(
+#     id=1,
+#     name="Sir Arthur Conan Doyle",
+#     birth_date=1859,
+#     date_of_death=1930
+# )
 
 
 class Book(db.Model):
@@ -49,12 +49,12 @@ class Book(db.Model):
         return f"Book: {self.title} ({self.publication_year})"
 
 
-book = Book(
-    id=10,
-    isbn=20,
-    title="Sherlock Holmes",
-    publication_year=1887,
-    author_id=1,
-    author=Author(name="Sir Arthur Conan Doyle")
-)
+# book = Book(
+#     id=10,
+#     isbn=20,
+#     title="Sherlock Holmes",
+#     publication_year=1887,
+#     author_id=1,
+#     author=Author(name="Sir Arthur Conan Doyle")
+# )
 #db.create_all()

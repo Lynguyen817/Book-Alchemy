@@ -71,7 +71,7 @@ def delete_book(book_id):
             db.session.delete(author)
             db.session.commit()
 
-        return redirect('/')
+        return redirect('/', code=303)
     except Exception as e:
         return f"Error: {str(e)}"
 
@@ -98,8 +98,8 @@ def home():
     elif sort_by == 'author':
         books = Book.query.join(Author).order_by(Author.name, Book.title).all()
 
-    formatted_books = [{'title': book.title, 'author': book.author} for book in books]
-    return render_template('home.html', books=formatted_books)
+    #formatted_books = [{'title': book.title, 'author': book.author} for book in books]
+    return render_template('home.html', books=books)
 
 
 if __name__ == "__main__":

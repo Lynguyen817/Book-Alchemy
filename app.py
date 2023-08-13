@@ -76,10 +76,19 @@ def delete_book(book_id):
         return f"Error: {str(e)}"
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    # Query the Book table for all books
-    books = Book.query.all()
+    if request.method == 'POST':
+        sort_by = request.form.get('sort_by')
+        if sort_by == 'title':
+            books = Book.query.order_by(Book.title).all()
+        elif sort_by == 'author':
+            books = Book.query.join(Author).order_by(Author.name, Book.title).all()
+        else:
+            books = Book.query.all()
+    else:
+        books = Book.query.all()
+
     formatted_books = [{'title': book.title, 'author': book.author} for book in books]
     return render_template('home.html', books=formatted_books)
 

@@ -1,0 +1,78 @@
+:root {
+    --heading-font-family:'Roboto Mono', monospace;
+    --default-font-family: Arial, sans-serif;
+    --second-font-family: 'Great Vibes', cursive;
+    --box-shadow: 5px 9px 20px rgba(0, 0, 0, 0.7);
+    --background-image: url("../static/book-background.jpeg");
+}
+body {
+    font-family: var(--default-font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-image);
+}
+header {
+    font-family: var(--heading-font-family);
+    font-weight: 700;
+    background-color: #35424a;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.book-list {
+    list-style: none;
+    padding: 0;
+}
+.book-item, .author-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+}
+.book-item img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+.book-details {
+    flex: 1;
+}
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    margin-top: 0;
+    font-family: var(--heading-font-family);
+    font-weight: 700;
+    font-size: 40px;
+}
+a {
+    text-decoration: none;
+}
+.delete-button {
+    background-color: #ff3333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.add-author, .add-book {
+    background: #35424a;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+.author-name {
+    font-family: var(--second-font-family);
+    font-size: 23px;
+}

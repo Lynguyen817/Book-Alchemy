@@ -30,7 +30,7 @@ class Book(db.Model):
 
     def __repr__(self):
         return f"Book(id={self.id}, isbn='{self.isbn}', title='{self.title}',publication_year={self.publication_year},.\
-         author_id={self.author_id})"
+          author_id={self.author_id})"
 
     def __str__(self):
         return f"Book: {self.title} ({self.publication_year})"

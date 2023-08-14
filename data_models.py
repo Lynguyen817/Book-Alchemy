@@ -4,6 +4,7 @@ db = SQLAlchemy()
 
 
 class Author(db.Model):
+    """ Creates an authors table with columns of id, name, birthdate and date of death"""
     __tablename__= 'author'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -19,6 +20,9 @@ class Author(db.Model):
 
 
 class Book(db.Model):
+    """ Creates a books table that has columns of id, isbn, title,publication-year, author-id.
+        ForeignKey is author-id.
+    """
     __tablename__ = 'book'
 
     id = db.Column(db.Integer, primary_key=True)

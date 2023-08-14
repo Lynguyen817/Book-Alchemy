@@ -17,6 +17,7 @@ with app.app_context():
 
 @app.route('/add_author', methods=['GET', 'POST'])
 def add_author():
+    """Adds an author to the authors table."""
     if request.method == 'POST':
         name = request.form['name']
         birthdate_str = request.form['birthdate']
@@ -36,6 +37,7 @@ def add_author():
 
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
+    """Adds a book to the books table."""
     if request.method == 'POST':
         isbn = request.form['isbn']
         title = request.form['title']
@@ -57,6 +59,7 @@ def add_book():
 
 @app.route('/book/<int:book_id>/delete', methods=['POST'])
 def delete_book(book_id):
+    """Deletes a book from the list"""
     try:
         book = Book.query.get_or_404(book_id)
 
@@ -77,6 +80,7 @@ def delete_book(book_id):
 
 @app.route('/author/<int:author_id>/delete', methods=['POST'])
 def delete_author(author_id):
+    """Deletes an author from the list"""
     try:
         author = Author.query.get_or_404(author_id)
 
@@ -93,6 +97,11 @@ def delete_author(author_id):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    """
+        Returns the books data.
+        Search a book in the book list.
+        Sort books by title or author.
+    """
     search_query = None
     sort_by = None
 
@@ -113,7 +122,6 @@ def home():
     elif sort_by == 'author':
         books = Book.query.join(Author).order_by(Author.name, Book.title).all()
 
-    #formatted_books = [{'title': book.title, 'author': book.author} for book in books]
     authors = Author.query.all()
     return render_template('home.html', books=books, authors=authors)
 

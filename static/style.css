@@ -3,13 +3,14 @@
     --default-font-family: Arial, sans-serif;
     --second-font-family: 'Great Vibes', cursive;
     --box-shadow: 5px 9px 20px rgba(0, 0, 0, 0.7);
+    --homepage-image: url("../static/homepage-img.jpeg");
     --background-image: url("../static/book-background.jpeg");
 }
 body {
     font-family: var(--default-font-family);
     margin: 0;
     padding: 0;
-    background-color: var(--background-image);
+    background-color: #35424a;
 }
 header {
     font-family: var(--heading-font-family);
@@ -19,22 +20,27 @@ header {
     padding: 10px;
     text-align: center;
 }
+.homepage {
+    background: var(--homepage-image);
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
-.book-list {
+.book-list, author-list {
     list-style: none;
     padding: 0;
+    margin: 2px;
 }
 .book-item, .author-info {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
+    border-radius: 7px;
+    padding: 20px;
     background-color: white;
     box-shadow: var(--box-shadow);
 }
@@ -43,18 +49,18 @@ header {
     height: auto;
     margin-right: 20px;
 }
-.book-details {
+.book-details, .author-info {
     flex: 1;
 }
 h1 {
-    font-size: 50px;
+    font-size: 60px;
 }
 
 h2 {
     margin-top: 0;
     font-family: var(--heading-font-family);
     font-weight: 700;
-    font-size: 40px;
+    font-size: 55px;
 }
 a {
     text-decoration: none;
@@ -68,7 +74,7 @@ a {
     cursor: pointer;
 }
 .add-author, .add-book {
-    background: #35424a;
+    background: var(--background-image);
     color: #FFFFFF;
     font-size: 20px;
 }

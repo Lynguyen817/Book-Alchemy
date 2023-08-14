@@ -11,7 +11,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
   </head>
-  <body>
+  <body class="homepage">
     <header>
         <h1>Welcome to the Book Store</h1>
     </header>
@@ -52,13 +52,15 @@
     <div class="container">
         <h2>Authors</h2>
         <a href="/add_author" class="btn btn-primary mb-2" tabindex="-1" role="button" aria-disabled="true">Add an Author</a>
-        <ul>
+        <ul class="author-list">
             {% for author in authors %}
                 <li class="author-info">
-                    <p><strong>{{ author.name }}</strong></p><br>
-                    <form action="{{ url_for('delete_author', author_id=author.id) }}" method="POST">
-                        <button class="delete-button" type="submit">Delete Author</button>
-                    </form>
+                    <div>
+                        <p class="fs-3 lh-sm">{{ author.name }}</p>
+                        <form action="{{ url_for('delete_author', author_id=author.id) }}" method="POST">
+                            <button class="delete-button" type="submit">Delete Author</button>
+                        </form>
+                    </div>
                 </li>
             {% endfor %}
         </ul>

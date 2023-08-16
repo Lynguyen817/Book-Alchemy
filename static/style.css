@@ -52,6 +52,15 @@ header {
 .book-details, .author-info {
     flex: 1;
 }
+.error {
+    font-family: var(--heading-font-family);
+    font-weight: 500;
+    background-color: #35424a;
+    color: red;
+    padding: 10px;
+    text-align: center;
+    font-size: 30px;
+}
 h1 {
     font-size: 60px;
 }

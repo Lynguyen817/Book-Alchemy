@@ -104,6 +104,7 @@ def home():
     """
     search_query = None
     sort_by = None
+    error_message = None
 
     if request.method == 'POST':
         search_query = request.form.get('search_query')
@@ -114,6 +115,9 @@ def home():
             (Book.title.ilike(f'%{search_query}%')) |
             (Book.author.has(Author.name.ilike(f'%{search_query}%')))
         ).all()
+        if not books:
+            error_message = "Error: Book not found."
+
     else:
         books = Book.query.all()
 
@@ -123,7 +127,7 @@ def home():
         books = Book.query.join(Author).order_by(Author.name, Book.title).all()
 
     authors = Author.query.all()
-    return render_template('home.html', books=books, authors=authors)
+    return render_template('home.html', books=books, authors=authors, error_message=error_message)
 
 
 if __name__ == "__main__":
